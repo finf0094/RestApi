@@ -1,13 +1,11 @@
 package com.example.springBootRest.dao;
 
 import com.example.springBootRest.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface StudentDAO {
-    public List<Student> getAllStudent();
-    public void addStudent(Student student);
-    public void deleteStudent(int id);
-    public Student getStudent(int id);
-    public void updateStudent(int id, Student student);
+public interface StudentRepository extends JpaRepository<Student, Integer>{
+    public List<Student> findAllByName(String name);
+
 }

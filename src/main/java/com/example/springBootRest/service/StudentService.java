@@ -9,4 +9,5 @@ public interface StudentService {
     public void addStudent(Student student);
     public void deleteStudent(int id);
     public Student getStudent(int id);
+    public List<Student> findAllByName(String name);
 }

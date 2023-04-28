@@ -1,46 +1,50 @@
 package com.example.springBootRest.service;
 
-import com.example.springBootRest.dao.StudentDAO;
+import com.example.springBootRest.dao.StudentRepository;
 import com.example.springBootRest.entity.Student;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService{
 
-    private final StudentDAO studentDAO;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentServiceImpl(StudentDAO studentDAO) {
-        this.studentDAO = studentDAO;
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     @Override
-    @Transactional
     public List<Student> getAllStudent() {
-        return studentDAO.getAllStudent();
+        return studentRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void addStudent(Student student) {
-        studentDAO.addStudent(student);
+        studentRepository.save(student);
     }
 
     @Override
-    @Transactional
     public void deleteStudent(int id) {
-        studentDAO.deleteStudent(id);
+        studentRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public Student getStudent(int id) {
-        return studentDAO.getStudent(id);
+        Optional<Student> student = studentRepository.findById(id);
+        if (student.isPresent()) {
+            return student.get();
+        } else {
+            return null;
+        }
     }
 
-
+    @Override
+    public List<Student> findAllByName(String name) {
+        return studentRepository.findAllByName(name);
+    }
 }

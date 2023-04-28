@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student")
+@CrossOrigin("*")
 public class StudentController {
 
     private final StudentService studentService;
@@ -37,11 +38,19 @@ public class StudentController {
     }
 
 
+
     @DeleteMapping("/{id}")
     public String deleteStudent(@PathVariable("id") int id) {
         studentService.deleteStudent(id);
 
         return "Student for: " + id + " to deleted";
     }
+
+    @GetMapping("/show/{name}")
+    public List<Student> getStudentsByName(@PathVariable("name") String name) {
+        List<Student> allName = studentService.findAllByName(name);
+        return allName;
+    }
+
 
 }
