@@ -3,6 +3,7 @@ package com.example.springBootRest.service;
 import com.example.springBootRest.dao.StudentRepository;
 import com.example.springBootRest.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<Student> getAllStudent() {
-        return studentRepository.findAll();
+        return studentRepository.findAll(Sort.by("id"));
     }
 
     @Override
@@ -46,5 +47,15 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Student> findAllByName(String name) {
         return studentRepository.findAllByName(name);
+    }
+
+    @Override
+    public Student updateStudent(Student student) {
+       return studentRepository.save(student);
+    }
+
+    @Override
+    public List<Student> findByNameContainingIgnoreCase(String name) {
+        return studentRepository.findByNameContainingIgnoreCase(name);
     }
 }

@@ -51,6 +51,14 @@ public class StudentController {
         List<Student> allName = studentService.findAllByName(name);
         return allName;
     }
-
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") int id, @RequestBody Student student) {
+        student.setId(id);
+        studentService.updateStudent(student);
+    }
+    @GetMapping("")
+    public List<Student> searchStudentsByName(@RequestParam(name = "filter", required = false) String searchText) {
+        return studentService.findByNameContainingIgnoreCase(searchText);
+    }
 
 }

@@ -10,4 +10,6 @@ public interface StudentService {
     public void deleteStudent(int id);
     public Student getStudent(int id);
     public List<Student> findAllByName(String name);
+    public Student updateStudent(Student student);
+    public List<Student> findByNameContainingIgnoreCase(String name);
 }
